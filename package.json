@@ -1,0 +1,25 @@
+{
+  "name": "monsieur",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/monsieur",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --recursive"
+  },
+  "author": "Markus Juopperi",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "compression": "^1.6.1",
+    "express": "^4.13.4",
+    "pg": "^4.5.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.22.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "should": "^8.3.1",
+    "should-http": "0.0.4",
+    "supertest": "^1.2.0"
+  }
+}

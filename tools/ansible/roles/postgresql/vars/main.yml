@@ -1,0 +1,12 @@
+---
+# vars file for postgresql
+postgresql_version: 9.4
+postgresql_databases:
+  - name: "monsieur"
+  - name: "monsieur_test"
+postgresql_user_name: "monsieur"
+postgresql_user_password: "jepjep"
+postgresql_admin_user: "postgres"
+postgresql_config_path: "/etc/postgresql/9.4/main"
+postgresql_encoding: UTF8
+postgresql_locale: en_US.UTF-8
