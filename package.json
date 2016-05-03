@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/monsieur",
     "test": "NODE_ENV=test mocha --recursive",
+    "test-ci": "NODE_ENV=travis mocha --recursive",
     "lint": "eslint ."
   },
   "author": "Markus Juopperi",
