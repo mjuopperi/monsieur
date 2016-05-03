@@ -1,4 +1,4 @@
-Monsieur
+Monsieur [![Build Status](https://travis-ci.org/mjuopperi/monsieur.svg?branch=master)](https://travis-ci.org/mjuopperi/monsieur)
 ========
 **Monsieur** is a monitoring app that receives temperature data from Raspberry Pi clients and displays it as pretty graphs.
 
