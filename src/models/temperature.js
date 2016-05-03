@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, DataTypes) => {
-  var Temperature = sequelize.define('Temperature', {
+  const Temperature = sequelize.define('Temperature', {
     temperature: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -19,14 +19,14 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: models => {
         Temperature.belongsTo(models.Sensor, {
-          onDelete: "CASCADE",
+          onDelete: 'CASCADE',
           foreignKey: {
             name: 'sensor_id',
             allowNull: false
           }
-        });
+        })
       }
     }
-  });
-  return Temperature;
+  })
+  return Temperature
 }

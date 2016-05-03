@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, DataTypes) => {
-  var Sensor = sequelize.define('Sensor', {
+  return sequelize.define('Sensor', {
     id: {
       type: DataTypes.TEXT,
       primaryKey: true,
@@ -8,6 +8,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     tableName: 'sensors'
-  });
-  return Sensor;
+  })
 }

@@ -1,15 +1,14 @@
-var models  = require('../models');
-var express = require('express');
-var routeUtil = require('../util/route-util');
-var models = require('../models');
+const models  = require('../models')
+const express = require('express')
+const routeUtil = require('../util/route-util')
 
-var router  = express.Router();
+const router  = express.Router()
 
-var withoutId = temperature => {
-  var t = {};
+const withoutId = temperature => {
+  const t = {}
   Object.keys(temperature.dataValues).filter(k => k != 'id')
-        .forEach(key => t[key] = temperature.dataValues[key]);
-  return t;
+        .forEach(key => t[key] = temperature.dataValues[key])
+  return t
 }
 
 router.get('/:sensorId', (req, res) => {
@@ -19,29 +18,29 @@ router.get('/:sensorId', (req, res) => {
       exclude: ['id', 'sensor_id']
     },
     order: [['timestamp', 'DESC']]
-  }).then(temperatures => res.json({temperatures: temperatures}));
-});
+  }).then(temperatures => res.json({temperatures: temperatures}))
+})
 
 router.post('/:sensorId', (req, res) => {
   models.Sensor.findById(req.params.sensorId).then(sensor => {
     if(!sensor) res.status(404).json('Sensor does not exist.')
     else {
-      var data = req.body;
-      data.sensor_id = sensor.id;
+      const data = req.body
+      data.sensor_id = sensor.id
       models.Temperature.create(data).then(temperature => {
-        res.status(201).json(withoutId(temperature));
+        res.status(201).json(withoutId(temperature))
       }).catch(error => {
-        var missingField = routeUtil.missingField(error)
+        const missingField = routeUtil.missingField(error)
         if (missingField) {
-          res.status(400).json(`Field '${missingField}' is required.`);
+          res.status(400).json(`Field '${missingField}' is required.`)
         } else {
-          res.status(400).json('Bad request.');
+          res.status(400).json('Bad request.')
         }
-      });
+      })
     }
   })
-});
+})
 
-router.use((req, res, next) => routeUtil.methodNotAllowed(req, res, next));
+router.use((req, res, next) => routeUtil.methodNotAllowed(req, res, next))
 
-module.exports = router;
+module.exports = router

@@ -1,8 +1,8 @@
-var models = require('../src/models');
+const models = require('../src/models')
 
-var randomSensorId = () => '28-' + Math.random().toString(12).slice(2, 14);
+const randomSensorId = () => '28-' + Math.random().toString(12).slice(2, 14)
 
-var randomTemperature = (sensorId, timestamp) => {
+const randomTemperature = (sensorId, timestamp) => {
   return {
     sensor_id: sensorId,
     timestamp: timestamp ? timestamp : new Date().getTime(),
@@ -10,21 +10,21 @@ var randomTemperature = (sensorId, timestamp) => {
   }
 }
 
-var clearDatabase = done => {
+const clearDatabase = done => {
   return models.Sensor.findAll().then(sensors => {
-    sensors.forEach(sensor => sensor.destroy());
-    return models.Temperature.destroy({ truncate : true }).then(() => { if(done) done() });
-  });
+    sensors.forEach(sensor => sensor.destroy())
+    return models.Temperature.destroy({ truncate : true }).then(() => { if(done) done() })
+  })
 }
 
 before(done => {
   models.sequelize.sync({ force : true })
-    .then(res => done())
-    .catch(error => done(error));
+    .then(() => done())
+    .catch(error => done(error))
 })
 
 after(done => {
-  clearDatabase(done);
+  clearDatabase(done)
 })
 
 module.exports = {
