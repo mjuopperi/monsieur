@@ -5,7 +5,7 @@ const randomSensorId = () => '28-' + Math.random().toString(12).slice(2, 14)
 const randomTemperature = (sensorId, timestamp) => {
   return {
     sensor_id: sensorId,
-    timestamp: timestamp ? timestamp : new Date().getTime(),
+    timestamp: timestamp ? timestamp : Math.floor(Math.random() * new Date().getTime()),
     temperature: Math.floor(Math.random() * 60000) - 20000 // -20 to 40 °C
   }
 }

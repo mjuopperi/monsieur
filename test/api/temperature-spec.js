@@ -21,16 +21,15 @@ describe('Temperature api', () => {
 
   it('should return all temperature data for sensor sorted by timestamp', done => {
     const sensor = { id: testSupport.randomSensorId() }
-    const now = new Date().getTime()
-    const temperatures = [
-      testSupport.randomTemperature(sensor.id, now + 1000),
-      testSupport.randomTemperature(sensor.id, now)
-    ]
+    const temperatures = [...Array(20).keys()].map(() => testSupport.randomTemperature(sensor.id))
     models.Sensor.create(sensor).then(() => {
       Promise.all(temperatures.map(temperature => models.Temperature.create(temperature))).then(() => {
         server.get('/api/temperatures/' + sensor.id).end((err, res) => {
           res.status.should.equal(200)
-          res.body.temperatures.should.eql(temperatures.map(withoutSensorId))
+          const expected = temperatures.slice()
+            .sort((a, b) => b.timestamp - a.timestamp)
+            .map(withoutSensorId)
+          res.body.temperatures.should.eql(expected)
           done()
         })
       })
