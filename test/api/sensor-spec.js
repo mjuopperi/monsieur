@@ -13,8 +13,8 @@ describe('Sensor api', () => {
   })
 
   it('should return all existing sensors', done => {
-    const s1 = { id: testSupport.randomSensorId() }
-    const s2 = { id: testSupport.randomSensorId() }
+    const s1 = testSupport.randomSensor()
+    const s2 = testSupport.randomSensor()
     models.Sensor.create(s1).then(() => {
       models.Sensor.create(s2).then(() => {
         server.get('/api/sensors').end((err, res) => {
@@ -28,7 +28,7 @@ describe('Sensor api', () => {
   })
 
   it('should create sensor', done => {
-    const sensor = { id: testSupport.randomSensorId() }
+    const sensor = testSupport.randomSensor()
     server.post('/api/sensors').send(sensor).end((err, res) => {
       res.status.should.equal(201)
       res.should.be.json()
@@ -41,7 +41,7 @@ describe('Sensor api', () => {
   })
 
   it('should not create sensor with existing id', done => {
-    const existingSensor = { id: testSupport.randomSensorId() }
+    const existingSensor = testSupport.randomSensor()
     models.Sensor.create(existingSensor).then(() => {
       server.post('/api/sensors').send(existingSensor).end((err, res) => {
         res.status.should.equal(409)
@@ -51,7 +51,7 @@ describe('Sensor api', () => {
   })
 
   it('should delete sensor', done => {
-    const sensor = { id: testSupport.randomSensorId() }
+    const sensor = testSupport.randomSensor()
     models.Sensor.create(sensor).then(() => {
       server.delete('/api/sensors/' + sensor.id).end((err, res) => {
         res.status.should.equal(204)

@@ -1,6 +1,15 @@
 const models = require('../src/models')
 
 const randomSensorId = () => '28-' + Math.random().toString(12).slice(2, 14)
+const randomSensorName = sensorId => `Sensor ${sensorId}`
+
+const randomSensor = name => {
+  const id = randomSensorId()
+  return {
+    id: id,
+    name: name ? name : randomSensorName(id)
+  }
+}
 
 const randomTemperature = (sensorId, timestamp) => {
   return {
@@ -28,6 +37,7 @@ after(done => {
 })
 
 module.exports = {
+  randomSensor: randomSensor,
   randomSensorId: randomSensorId,
   randomTemperature: randomTemperature,
   clearDatabase: clearDatabase
