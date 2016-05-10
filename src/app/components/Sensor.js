@@ -28,4 +28,21 @@ const Sensor = ({ name, id, temperatures }) => {
   )
 }
 
+Sensor.propTypes = {
+  name: React.PropTypes.string.isRequired,
+  id: React.PropTypes.string.isRequired,
+  temperatures: React.PropTypes.shape({
+    isFetching: React.PropTypes.bool.isRequired,
+    items: React.PropTypes.arrayOf(React.PropTypes.shape({
+      temperature: React.PropTypes.number,
+      timestamp: React.PropTypes.number
+    })),
+    latest: React.PropTypes.shape({
+      temperature: React.PropTypes.number,
+      timestamp: React.PropTypes.number
+    }),
+    lastUpdated: React.PropTypes.number
+  })
+}
+
 export default Sensor

@@ -17,4 +17,12 @@ export const SensorList = ({ sensors, temperaturesBySensor }) => {
   )
 }
 
+SensorList.propTypes = {
+  sensors: React.PropTypes.arrayOf(React.PropTypes.shape({
+    id: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired
+  })),
+  temperaturesBySensor: React.PropTypes.object
+}
+
 export default SensorList
