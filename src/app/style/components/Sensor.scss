@@ -1,0 +1,41 @@
+@import '../vars';
+
+.sensor {
+  display: inline-block;
+  padding: 12px;
+  font-family: $font-body;
+  width: 100%;
+  max-width: 450px;
+}
+
+.data {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  .info {
+    margin-right: 10px;
+    h3, span {
+      font-weight: 300;
+    }
+
+    h3 {
+      color: $color-dark-gray;
+      margin: 0 0 -8px;
+      font-size: 1.4em;
+    }
+
+    span {
+      color: $color-light-gray;
+      font-size: 0.8em;
+    }
+  }
+
+  .temperature {
+    margin: 0 0 0 10px;
+    color: $color-dark-gray;
+    font-size: 2.2em;
+    font-weight: 300;
+  }
+}
