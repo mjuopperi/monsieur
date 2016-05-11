@@ -1,10 +1,11 @@
 import React from 'react'
 import Spinner from './Spinner'
+import TemperatureChart from './TemperatureChart'
 import styles from '../style/components/Sensor.scss'
 import { formatTemperature } from '../util'
 
 const currentTemperature = temperatures => {
-  if (!temperatures || temperatures.isFetching) {
+  if (!temperatures || (!temperatures.latest && temperatures.isFetching)) {
     return <Spinner />
   } else {
     const temperature = temperatures.latest ?
@@ -24,6 +25,7 @@ const Sensor = ({ name, id, temperatures }) => {
         </div>
         {currentTemperature(temperatures)}
       </div>
+      <TemperatureChart data={temperatures.items}/>
     </li>
   )
 }
@@ -43,6 +45,13 @@ Sensor.propTypes = {
     }),
     lastUpdated: React.PropTypes.number
   })
+}
+
+Sensor.defaultProps = {
+  temperatures: {
+    isFetching: false,
+    items: []
+  }
 }
 
 export default Sensor

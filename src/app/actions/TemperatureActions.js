@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import moment from 'moment'
 
 export const REQUEST_TEMPERATURES = 'REQUEST_TEMPERATURES'
 export const RECEIVE_TEMPERATURES = 'RECEIVE_TEMPERATURES'
@@ -20,9 +21,11 @@ export const receiveTemperatures = (sensorId, json) => {
 }
 
 const fetchTemperatures = sensorId => {
+  const end = moment()
+  const start = moment(end).subtract(6, 'hours')
   return dispatch => {
     dispatch(requestTemperatures(sensorId))
-    return fetch(`/api/temperatures/${sensorId}`)
+    return fetch(`/api/temperatures/${sensorId}/${start}-${end}`)
       .then(response => response.json())
       .then(json => dispatch(receiveTemperatures(sensorId, json)))
   }

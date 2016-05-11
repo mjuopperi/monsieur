@@ -13,7 +13,7 @@ const temperatures = (state = {
     return Object.assign({}, state, {
       isFetching: false,
       items: action.temperatures,
-      latest: action.temperatures[0],
+      latest: action.temperatures[action.temperatures.length - 1],
       lastUpdated: action.receivedAt
     })
   default:

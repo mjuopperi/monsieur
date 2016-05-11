@@ -14,10 +14,15 @@ const store = createStore(
   applyMiddleware(thunk)
 )
 
-store.dispatch(fetchSensorsIfNeeded()).then(() => {
+const updateTemperatures = () => {
   store.getState().sensors.items.forEach(sensor => {
     store.dispatch(fetchTemperaturesIfNeeded(sensor.id))
   })
+  setTimeout(updateTemperatures, 5000)
+}
+
+store.dispatch(fetchSensorsIfNeeded()).then(() => {
+  updateTemperatures()
 })
 
 render(<Provider store={store}><App /></Provider>, document.getElementById('app'))

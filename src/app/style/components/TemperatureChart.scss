@@ -1,0 +1,14 @@
+@import '../vars';
+
+.chart {
+  width: calc(100% + 30px);
+  height: 350px;
+  max-height: 60vh;
+  margin: 0 0 0 -30px;
+  @media (min-width: 550px) {
+    margin-left: -60px;
+    width: calc(100% + 60px);
+  }
+  font-size: 0.8em;
+  color: $color-dark-gray;
+}

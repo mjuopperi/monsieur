@@ -19,6 +19,24 @@ describe('Temperature api', () => {
     return temperature
   }
 
+  const groupByInterval = (interval) => (acc, t) => {
+    const timestamp = Math.floor(t.timestamp / interval) * interval
+    const temperature = t.temperature
+    acc[timestamp] = acc[timestamp] ? acc[timestamp] : []
+    acc[timestamp].push(temperature)
+    return acc
+  }
+
+  const groupedByIntervalToArray = (groupedByInterval) => Object.keys(groupedByInterval).map(interval => {
+    const ts = groupedByInterval[interval]
+    return {
+      timestamp: parseInt(interval),
+      // Use toFixed with parseInt instead of Math.round
+      // because PostgreSQL rounds -0.5 down instead of up
+      temperature: parseInt((ts.reduce((acc, t) => acc + t) / ts.length).toFixed())
+    }
+  })
+
   it('should return all temperature data for sensor sorted by timestamp', done => {
     const sensor = { id: testSupport.randomSensorId() }
     const temperatures = [...Array(20).keys()].map(() => testSupport.randomTemperature(sensor.id))
@@ -29,6 +47,32 @@ describe('Temperature api', () => {
           const expected = temperatures.slice()
             .sort((a, b) => b.timestamp - a.timestamp)
             .map(withoutSensorId)
+          res.body.temperatures.should.eql(expected)
+          done()
+        })
+      })
+    })
+  })
+
+  it('should return summary of temperatures for a sensor grouped by interval', done => {
+    const sensor = { id: testSupport.randomSensorId() }
+    const end = Date.now()
+    const start = end - 12 * 60 * 60 * 1000
+    const queryStart = end - 6 * 60 * 60 * 1000
+    const interval = Math.floor((end - start) / 60)
+    const temperatures = [...Array(240)].map((_, i) => testSupport.randomTemperature(sensor.id, end - i * interval / 2))
+    models.Sensor.create(sensor).then(() => {
+      Promise.all(temperatures.map(temperature => models.Temperature.create(temperature))).then(() => {
+        server.get(`/api/temperatures/${sensor.id}/${queryStart}-${end}`).end((err, res) => {
+          res.status.should.equal(200)
+          res.body.temperatures.length.should.be.within(59, 61)
+          const groupedByInterval = temperatures.slice()
+            .filter(t => t.timestamp >= queryStart && t.timestamp  <= end)
+            .map(withoutSensorId)
+            .reduce(groupByInterval(interval / 2), {})
+          const expected = groupedByIntervalToArray(groupedByInterval)
+            .sort((a, b) => a.timestamp - b.timestamp)
+
           res.body.temperatures.should.eql(expected)
           done()
         })
