@@ -1,0 +1,82 @@
+@import '../vars';
+@import '../mixins';
+
+.addSensorForm {
+  display: block;
+  padding: 20px;
+  form {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    @media (max-width: 498px) { justify-content: center }
+    align-items: flex-end;
+    max-width: 500px;
+    font-family: $font-body;
+    margin: 0 auto;
+    padding: 12px 10px;
+    box-sizing: border-box;
+    border: 1px solid $color-light-gray;
+    border-radius: 4px;
+  }
+}
+
+.info {
+  margin-right: 10px;
+
+  .inputContainer {
+    position: relative;
+    padding-top: 26px;
+  }
+
+  label {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    color: $color-gray;
+    font-weight: 300;
+  }
+
+  input {
+    font-family: $font-body;
+    font-weight: 300;
+    width: 200px;
+    @media (max-width: 498px) { width: 100% }
+    border: 1px solid $color-light-gray;
+    color: $color-dark-gray;
+    padding: 4px;
+
+    &[name='name'] {
+      margin: 0 0 8px;
+      font-size: 1.4em;
+    }
+
+    &[name='id'] {
+      font-size: 0.8em;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 2px $color-light-gray;
+      + label {
+        font-weight: 400;
+        letter-spacing: -0.3px;
+      }
+    }
+  }
+}
+
+.buttons {
+  margin-top: 20px;
+  text-align: center;
+  button {
+    @include button($color-green, $color-white);
+    display: inline-block;
+    width: 100px;
+    margin: 8px;
+    &.cancel { background-color: $color-light-gray }
+    @media (min-width: 499px) {
+      &:not(:first-child) { margin: 0 0 0 8px; }
+      &:not(:last-child) { margin: 0 8px 0 0; }
+    }
+  }
+}

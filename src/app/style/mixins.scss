@@ -1,0 +1,48 @@
+@import 'vars';
+
+@mixin drop-shadow($horizontal, $vertical, $spread, $color) {
+  -webkit-filter: drop-shadow($horizontal $vertical $spread $color);
+  filter: drop-shadow($horizontal $vertical $spread $color);
+}
+
+@mixin transition($property, $duration, $timing-function) {
+  -webkit-transition: $property $duration $timing-function;
+  -moz-transition: $property $duration $timing-function;
+  -ms-transition: $property $duration $timing-function;
+  -o-transition: $property $duration $timing-function;
+  transition: $property $duration $timing-function;
+}
+
+@mixin button($background-color, $color) {
+  display: block;
+  padding: 4px 16px 8px;
+  border-radius: 4px;
+  border: none;
+  background: $background-color;
+  color: $color;
+  font-family: $font-body;
+  font-size: 1.2em;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+
+  &:hover, &:focus {
+    text-shadow: 0 0 5px rgba($color, 0.6);
+    svg { @include drop-shadow(0, 0, 2px, $color) }
+  }
+  
+  &:disabled {
+    background: lighten($color-light-gray, 10%);
+    text-shadow: none;
+    cursor: not-allowed;
+  }
+
+  svg, span {
+    vertical-align: middle;
+    @include transition(all, 0.2s, linear);
+  }
+
+  svg {
+    fill: $color;
+  }
+}
