@@ -22,7 +22,7 @@ const TChart = (temperatures) => {
           <XAxis dataKey='time' minTickGap={20} />
           <Tooltip />
           <CartesianGrid stroke='#f5f5f5' />
-          <Line type='monotone' dataKey='temperature' name='Temperature' unit=' °C' stroke='#c62a51' isAnimationActive={false} dot={false} />
+          <Line type='monotone' dataKey='temperature' name='Temperature' unit=' °C' stroke='#0b4f6c' isAnimationActive={false} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     </div>
