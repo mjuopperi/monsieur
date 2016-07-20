@@ -1,9 +1,11 @@
 import fetch from 'isomorphic-fetch'
-import { post } from '../util'
+import { post, del } from '../util'
 
 export const TOGGLE_ADD_SENSOR_FORM = 'TOGGLE_ADD_SENSOR_FORM'
 export const ADD_SENSOR = 'ADD_SENSOR'
 export const SENSOR_ADDED = 'SENSOR_ADDED'
+export const REMOVE_SENSOR = 'REMOVE_SENSOR'
+export const SENSOR_REMOVED = 'SENSOR_REMOVED'
 export const REQUEST_SENSORS = 'REQUEST_SENSORS'
 export const RECEIVE_SENSORS = 'RECEIVE_SENSORS'
 
@@ -27,6 +29,20 @@ export const sensorAdded = (sensor) => {
   }
 }
 
+export const removeSensor = (sensorId) => {
+  return {
+    sensorId: sensorId,
+    type: REMOVE_SENSOR
+  }
+}
+
+export const sensorRemoved = (sensorId) => {
+  return {
+    sensorId: sensorId,
+    type: SENSOR_REMOVED
+  }
+}
+
 export const requestSensors = () => {
   return {
     type: REQUEST_SENSORS
@@ -47,6 +63,14 @@ export const postSensor = (sensor) => {
     return post('/api/sensors', sensor)
       .then(response => response.json())
       .then(json => dispatch(sensorAdded(json)))
+  }
+}
+
+export const deleteSensor = (sensorId) => {
+  return dispatch => {
+    dispatch(removeSensor(sensorId))
+    return del(`/api/sensors/${sensorId}`)
+      .then(() => dispatch(sensorRemoved(sensorId)))
   }
 }
 

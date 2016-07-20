@@ -9,4 +9,8 @@ export const post = (url, data) => {
     body: JSON.stringify(data)
   })
 }
-
+export const del = (url) => {
+  return fetch(url, {
+    method: 'DELETE'
+  })
+}

@@ -1,5 +1,5 @@
-import { TOGGLE_ADD_SENSOR_FORM, ADD_SENSOR, SENSOR_ADDED,
-         REQUEST_SENSORS, RECEIVE_SENSORS } from '../actions/SensorActions'
+import { TOGGLE_ADD_SENSOR_FORM, ADD_SENSOR, SENSOR_ADDED, REMOVE_SENSOR,
+         SENSOR_REMOVED, REQUEST_SENSORS, RECEIVE_SENSORS } from '../actions/SensorActions'
 
 const sensors = (state = {
   formVisible: false,
@@ -21,6 +21,12 @@ const sensors = (state = {
       items: state.items.concat(action.sensor),
       isAdding: false,
       formVisible: false
+    })
+  case REMOVE_SENSOR:
+    return Object.assign({}, state, {})
+  case SENSOR_REMOVED:
+    return Object.assign({}, state, {
+      items: state.items.filter(sensor => sensor.id != action.sensorId)
     })
   case REQUEST_SENSORS:
     return Object.assign({}, state, {

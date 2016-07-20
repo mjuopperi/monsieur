@@ -4,7 +4,7 @@ import AddSensor from './AddSensor'
 import styles from '../style/components/SensorList.scss'
 
 export const SensorList = ({ sensors, temperaturesBySensor, addSensorFormVisible,
-                             isAdding, toggleAddSensorForm, postSensor }) => {
+                             isAdding, toggleAddSensorForm, postSensor, deleteSensor }) => {
   return (
     <div className={styles.sensors}>
       <ul>
@@ -14,6 +14,7 @@ export const SensorList = ({ sensors, temperaturesBySensor, addSensorFormVisible
             name = {name}
             id = {id}
             temperatures = {temperaturesBySensor[id]}
+            deleteSensor = {deleteSensor}
           />
         )}
       </ul>
@@ -36,7 +37,8 @@ SensorList.propTypes = {
   addSensorFormVisible: React.PropTypes.bool.isRequired,
   isAdding: React.PropTypes.bool.isRequired,
   toggleAddSensorForm: React.PropTypes.func.isRequired,
-  postSensor: React.PropTypes.func.isRequired
+  postSensor: React.PropTypes.func.isRequired,
+  deleteSensor: React.PropTypes.func.isRequired
 }
 
 export default SensorList

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { toggleAddSensorForm, postSensor } from '../actions/SensorActions'
+import { toggleAddSensorForm, postSensor, deleteSensor } from '../actions/SensorActions'
 import SensorList from '../components/SensorList'
 
 const mapStateToProps = (state) => {
@@ -14,7 +14,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleAddSensorForm: () => dispatch(toggleAddSensorForm()),
-    postSensor: (sensor) => dispatch(postSensor(sensor))
+    postSensor: (sensor) => dispatch(postSensor(sensor)),
+    deleteSensor: (sensor) => dispatch(deleteSensor(sensor))
   }
 }
 

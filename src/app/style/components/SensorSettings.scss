@@ -1,0 +1,37 @@
+@import '../mixins';
+
+.settings {
+  display: block;
+  width: 100%;
+  text-align: right;
+
+  button {
+    margin-left: 16px;
+  }
+  button.edit {
+    @include button(transparent, $color-gray);
+    svg { height: 20px; }
+  }
+  button.delete {
+    @include button(transparent, $color-red);
+    svg { height: 20px; }
+  }
+  button.close {
+    @include button(transparent, $color-gray);
+    svg {
+      height: 14px;
+      padding: 3px;
+    }
+  }
+  button.edit, button.delete, button.close {
+    display: inline-block;
+    padding: 0;
+
+    span {
+      margin-right: 8px;
+      font-weight: 300;
+    }
+
+  }
+}
+

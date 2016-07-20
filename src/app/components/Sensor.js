@@ -1,5 +1,6 @@
 import React from 'react'
 import Spinner from './Spinner'
+import SensorSettings from './SensorSettings'
 import TemperatureChart from './TemperatureChart'
 import styles from '../style/components/Sensor.scss'
 import { formatTemperature } from '../util'
@@ -15,7 +16,7 @@ const currentTemperature = temperatures => {
   }
 }
 
-const Sensor = ({ name, id, temperatures }) => {
+const Sensor = ({ name, id, temperatures, deleteSensor }) => {
   return (
     <li className={styles.sensor}>
       <div className={styles.data}>
@@ -25,6 +26,7 @@ const Sensor = ({ name, id, temperatures }) => {
         </div>
         {currentTemperature(temperatures)}
       </div>
+      <SensorSettings deleteSensor={() => deleteSensor(id)}/>
       <TemperatureChart data={temperatures.items}/>
     </li>
   )
@@ -44,7 +46,8 @@ Sensor.propTypes = {
       timestamp: React.PropTypes.number
     }),
     lastUpdated: React.PropTypes.number
-  })
+  }),
+  deleteSensor: React.PropTypes.func.isRequired
 }
 
 Sensor.defaultProps = {
