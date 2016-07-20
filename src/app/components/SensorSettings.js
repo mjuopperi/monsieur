@@ -9,6 +9,14 @@ const Button = ({text, icon, className, onClick}) => (
   </button>
 )
 
+// TODO: Sensor settings
+// Add state of sensor (display/edit) to each sensor when they are fetched or added
+// Display name and id of sensor as inputs when in edit mode
+// Add save button to settings controls
+// Collect data from sensor and dispatch with updateSensor action
+// Create actions for updating sensors (updateSensor, sensorUpdated, putSensor)
+// Create reducers for handling update results (updateSensor, sensorUpdated)
+
 const Controls = ({editing, toggleEditing, deleteSensor}) => {
   if (editing) {
     return (
